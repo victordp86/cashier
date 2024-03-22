@@ -23,12 +23,15 @@ class OrderItem
     private $amount;
 
     /** @var float */
-    private $orderamount;
+    private $itemPrice;
 
     /** @var float */
-    private $discountapplied;
+    private $orderLinePrice;
 
-    // ...
+    /** @var float */
+    private $priceWithDiscount;
+
+     // ...
     public function getOrderRef(): ?Order
     {
         return $this->orderRef;
@@ -76,17 +79,17 @@ class OrderItem
     /**
      * @return mixed
      */
-    public function getOrderamount()
+    public function getOrderAmount()
     {
-        return $this->orderamount;
+        return $this->orderAmount;
     }
 
     /**
-     * @param mixed $orderamount
+     * @param mixed $orderAmount
      */
-    public function setOrderamount($orderamount): void
+    public function setOrderAmount($orderAmount): void
     {
-        $this->orderamount = $orderamount;
+        $this->orderAmount = $orderAmount;
     }
 
     /**
@@ -103,6 +106,36 @@ class OrderItem
     public function setDiscountapplied($discountapplied): void
     {
         $this->discountapplied = $discountapplied;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    public function getItemPrice(): float
+    {
+        return $this->itemPrice;
+    }
+
+    public function setItemPrice(float $itemPrice): void
+    {
+        $this->itemPrice = $itemPrice;
+    }
+
+    public function getOrderLinePrice(): float
+    {
+        return $this->orderLinePrice;
+    }
+
+    public function setOrderLinePrice(float $orderLinePrice): void
+    {
+        $this->orderLinePrice = $orderLinePrice;
     }
 
 }

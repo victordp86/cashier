@@ -128,7 +128,7 @@ class MyClassTest extends TestCase
 ////        $this->assertEquals('helloworld', $result);
     }
 
-    public function testWhenAddedTwoGreanTeasWeHaveOneFree()
+    public function testWhenAddedTwoGreenTeasWeHaveOneFree()
     {
 
         //Arrange
@@ -137,11 +137,15 @@ class MyClassTest extends TestCase
         //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
         $this->myOrderItem1->setProduct("GR1");
-        $this->myOrderItem1->setAmount(2);
+        $this->myOrderItem1->setAmount(1);
+        $this->myOrderItem1->setOrderLinePrice(3.11);
+        $this->myOrderItem1->setItemPrice(3.11);
         $this->myOrder->addItem($this->myOrderItem1);
 
+        $this->myOrder->calculateItemsDiscount();
         //Assert
-        $this->assertEquals($this->myOrder->calculateItemsDiscount(), true);
+        $this->assertEquals($this->myOrder->totalAmount(), 3.11 );
+        $this->assertEquals($this->myOrderItem1->getAmount(), 2 );
 //        $this->myOrder->getStatus();
 //         fwrite(STDERR, print_r($this->myOrder->getStatus(), TRUE));
 //        var_dump($this->myOrder->getStatus());

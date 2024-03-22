@@ -86,13 +86,30 @@ class Order
     public function calculateItemsDiscount(): true
     {
         foreach ($this->items as $item){
-          //
            if ($item->getProduct()==='GR1'){
+               $item->setAmount($item->getAmount() * 2);
+//               if($item->getAmount() %2 == 1){
+//                   $item->setAmount($item->getAmount() + 1 );
+//                   $item->setDiscountPrice($item->getDiscountPrice - ($item->getAmount));
+//               }
                return true;
            }
         }
         return false;
-        //return $this//->items;
+    }
+
+    /**
+     * @return float
+     */
+    public function totalAmount(): float
+    {
+        $total = 0;
+        foreach ($this->items as $item){
+          $total = $total +  $item->getOrderLinePrice();
+
+         var_dump($item->getOrderLinePrice());
+        }
+        return $total;
     }
     public function getStatus(): ?string
     {
