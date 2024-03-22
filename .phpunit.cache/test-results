@@ -1,0 +1,1 @@
+{"version":1,"defects":{"MyClassTest::testConcatenateStrings":5,"MyClassTest::testProductIsAddedToOrder":8,"MyClassTest::testTwoProductsAreAddedToOrder":8},"times":{"MyClassTest::testConcatenateStrings":0.002,"MyClassTest::testProductIsAddedToOrder":0.003,"MyClassTest::testTwoProductsAreAddedToOrder":0.007}}
