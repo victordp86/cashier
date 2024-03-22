@@ -144,17 +144,53 @@ class MyClassTest extends TestCase
 
         $this->myOrder->calculateItemsDiscount();
         //Assert
-        $this->assertEquals($this->myOrder->totalAmount(), 3.11 );
-        $this->assertEquals($this->myOrderItem1->getAmount(), 2 );
-//        $this->myOrder->getStatus();
-//         fwrite(STDERR, print_r($this->myOrder->getStatus(), TRUE));
-//        var_dump($this->myOrder->getStatus());
-//          $this->myOrder->addItem($this->myOrderItem1);
-//        $result = $this->myClass->concatenateStrings('hello', 'world');
-//
-//        $this->assertEquals('helloworld', $result);
 
-        $this->myOrder->removeItem($this->myOrderItem1);
+        $this->assertEquals($this->myOrderItem1->getAmount(), 2 );
+        $this->assertEquals($this->myOrder->totalPrice(), 3.11 );
+
+    }
+
+    public function testWhenAddedThreeStrawberriesPricesLowersToForFifty()
+    {
+
+        //Arrange
+        $this->myOrderItem1= new \App\Entity\OrderItem();
+
+        //Act
+        $this->myOrderItem1->setOrderRef($this->myOrder);
+        $this->myOrderItem1->setProduct("SR1");
+        $this->myOrderItem1->setAmount(3);
+        $this->myOrderItem1->setOrderLinePrice(5);
+        $this->myOrderItem1->setItemPrice(5);
+        $this->myOrder->addItem($this->myOrderItem1);
+
+        $this->myOrder->calculateItemsDiscount();
+        //Assert
+
+//        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
+        $this->assertEquals($this->myOrder->totalPrice(), 13.50 );
+
+    }
+
+
+    public function testWhenAddedThreeCoffeesPricesLowersToTwoThirdsOfItsOriginalPrice()
+    {
+
+        //Arrange
+        $this->myOrderItem1= new \App\Entity\OrderItem();
+
+        //Act
+        $this->myOrderItem1->setOrderRef($this->myOrder);
+        $this->myOrderItem1->setProduct("CF1");
+        $this->myOrderItem1->setAmount(3);
+        $this->myOrderItem1->setItemPrice(11.23);
+        $this->myOrder->addItem($this->myOrderItem1);
+
+        $this->myOrder->calculateItemsDiscount();
+        //Assert
+//        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
+        $this->assertEquals($this->myOrder->totalPrice(),22.459999999999997);
+
     }
 }
 ?>

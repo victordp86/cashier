@@ -81,27 +81,49 @@ class Order
     }
 
     /**
-     * @return boolean
      */
-    public function calculateItemsDiscount(): true
+    public function calculateItemsDiscount()
     {
+        $currentDiscountGR1 = 2;
+        $currentDiscountSR1 = 4.5;
+        $currentDiscountCR1 = 2/3;
+        var_dump('ENTERS');
         foreach ($this->items as $item){
-           if ($item->getProduct()==='GR1'){
-               $item->setAmount($item->getAmount() * 2);
+            /** @item OrderItem */
+            if ($item->getProduct()==='GR1'){
+                $item->setAmount($item->getAmount() * $currentDiscountGR1);
 //               if($item->getAmount() %2 == 1){
 //                   $item->setAmount($item->getAmount() + 1 );
 //                   $item->setDiscountPrice($item->getDiscountPrice - ($item->getAmount));
 //               }
-               return true;
-           }
-        }
-        return false;
+            }
+
+            if ($item->getProduct()==='SR1'){
+                if($item->getAmount()>=3){
+                    $item->setPrice($currentDiscountSR1);
+                    $item->setOrderLinePrice($item->getPrice() * $item->getAmount() );
+//                    var_dump($item->getPrice());
+//                    var_dump($item->getOrderLinePrice());
+                }
+            }
+            if ($item->getProduct()==='CF1'){
+                var_dump('ENTERS');
+                if($item->getAmount()>=3){
+                    var_dump('ENTERS');
+                    var_dump($item->getItemPrice());
+                    $discontPrice = $item->getAmount() * $item->getItemPrice() * $currentDiscountCR1;
+                    var_dump($discontPrice);
+                    $item->setOrderLinePrice($discontPrice);
+                }
+
+            }
+    }
     }
 
     /**
      * @return float
      */
-    public function totalAmount(): float
+    public function totalPrice(): float
     {
         $total = 0;
         foreach ($this->items as $item){
