@@ -111,7 +111,8 @@ class Order
                 if($item->getAmount()>=3){
                     var_dump('ENTERS');
                     var_dump($item->getItemPrice());
-                    $discontPrice = $item->getAmount() * $item->getItemPrice() * $currentDiscountCR1;
+                    $discontPrice =  $item->getAmount() * $item->getItemPrice() * $currentDiscountCR1;
+                    $discontPrice = number_format($discontPrice,2);
                     var_dump($discontPrice);
                     $item->setOrderLinePrice($discontPrice);
                 }
