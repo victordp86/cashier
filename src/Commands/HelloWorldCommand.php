@@ -7,92 +7,103 @@ namespace MyExample\Commands;
 
 // 02 Importing the Command base class
 use Symfony\Component\Console\Command\Command;
-// 03 Importing the input/output interfaces
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Question\SetError;
+
+// 03 Importing the input/output interfaces
+
+require_once 'src/Entity/Order.php';
+require_once 'src/Entity/OrderItem.php';
 
 class HelloWorldCommand extends Command
 {
+    private $myOrder;
+    private $myOrderItem1;
+    private $myOrderItem2;
+    private $myOrderItem3;
+
     // 05 Implementing the configure method
     protected function configure()
     {
         $this
-            // 06 defining the command name
             ->setName('buy')
-            // 07 defining the description of the command
-            ->setDescription('CashierHello')
-            // 08 defining the help (shown with -h option)
-            ->setHelp('This command .')
-            ->addArgument('name', InputArgument::REQUIRED, 'Who do you want to greet?')
-            ->addArgument('last_name', InputArgument::OPTIONAL, 'Your last name?')
-    ;
+            ->addArgument('name', InputArgument::OPTIONAL, 'Your name');
     }
 
     // 09 implementing the execute method
     protected function execute(InputInterface $input, OutputInterface $output): int
     { // 11 returning the success status
-        $text = 'Hi '.$input->getArgument('name');
+        $items = [];
+        $keepAsking = true;
+        while ($keepAsking) {
+            $helper = $this->getHelper('question');
+            $question = new ConfirmationQuestion('I want to add a new product to the cart?', false);
 
-        $lastName = $input->getArgument('last_name');
-        if ($lastName) {
-            $text .= ' '.$lastName;
+            $keepAsking = $helper->ask($input, $output, $question);
+            $output->writeln('You have just selected: ' . $keepAsking);
+
+            if ($keepAsking) {
+                $helper = $this->getHelper('question');
+                $question = new Question('Please enter de product code?', false);
+
+                $productCode = $helper->ask($input, $output, $question);
+                $output->writeln('You have just selected: ' . $productCode);
+
+                $helper = $this->getHelper('question');
+                $question = new Question('Please enter de product amount?', false);
+
+                $productAmount = $helper->ask($input, $output, $question);
+                $output->writeln('Selected amount: ' . $productAmount);
+
+                $items[$productCode] = $productAmount + isset($items[$productCode]) ?? 0;
+
+            }
         }
 
-        $output->writeln($text.'!');
+        $this->myOrder = new \App\Entity\Order();
+
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
+        $this->myOrderItem2 = new \App\Entity\OrderItem();
+        $this->myOrderItem3 = new \App\Entity\OrderItem();
+
+        if (isset($items["SR1"])) {
+            $this->myOrderItem1->setOrderRef($this->myOrder);
+            $this->myOrderItem1->setProduct("SR1");
+            $this->myOrderItem1->setAmount($items["SR1"]);
+            $this->myOrderItem1->setOrderLinePrice(5);
+            $this->myOrderItem1->setItemPrice(5);
+            $this->myOrder->addItem($this->myOrderItem1);
+        }
+
+
+        if (isset($items["GR1"])) {
+            $this->myOrderItem2->setOrderRef($this->myOrder);
+            $this->myOrderItem2->setProduct("GR1");
+            $this->myOrderItem2->setAmount($items["GR1"]);
+            $this->myOrderItem2->setOrderLinePrice(3.11);
+            $this->myOrderItem2->setItemPrice(3.11);
+            $this->myOrder->addItem($this->myOrderItem2);
+        }
+
+
+        if (isset($items["CF1"])) {
+            $this->myOrderItem3->setOrderRef($this->myOrder);
+            $this->myOrderItem3->setProduct("CF1");
+            $this->myOrderItem3->setAmount(3);
+            $this->myOrderItem3->setOrderLinePrice(11.23);
+            $this->myOrderItem3->setItemPrice(11.23);
+            $this->myOrder->addItem($this->myOrderItem3);
+        }
+
+
+        $this->myOrder->calculateItemsDiscount();
+
+        $output->writeln('Total price: ' . $this->myOrder->totalPrice());
 
         return Command::SUCCESS;
     }
-
-
-//
-//// 04 Defining the class extending the Command base class
-//class HelloWorldCommand extends Command
-//{
-//    // 05 Implementing the configure method
-//    protected function configure()
-//    {
-//        $this
-//            // 06 defining the command name
-//            ->setName('hello')
-//            // 07 defining the description of the command
-//            ->setDescription('Prints Hello')
-//            // 08 defining the help (shown with -h option)
-//            ->setHelp('This command prints a simple greeting.');
-//
-////        $this
-////            ->setDescription('Cast a random spell!')
-////            ->addArgument('your-name', InputArgument::OPTIONAL, 'Your name')
-////            ->addOption('yell', null, InputOption::VALUE_NONE, 'Yell?')
-////  ;
-//    }
-//
-//    // 09 implementing the execute method
-//    protected function execute(InputInterface $input, OutputInterface $output): int
-//    {
-//        $io = new SymfonyStyle($input, $output);
-//        $yourName = $input->getArgument('your-name');
-//         $helper = $this->getHelper('question');
-//
-//        $io = new SymfonyStyle($input, $output);
-//        $io->ask('Product code?');
-//        // 10 using the Output for writing something
-//        $value = 0;
-//        $io->ask('Number of workers to start');
-////        $io->ask('Number of workers to start', '1', function (string $number): int {
-////            if (!is_numeric($number)) {
-////                throw new \RuntimeException('You must type a number.');
-////            }
-////           $value = (int) $number;
-////           return $value;
-////        });
-//
-//
-//        $output->writeln("Hello, " . $io. "!");
-//        $output->writeln("Hello, " . get_current_user() . "!");
-////        $output->writeln("It's " . date("l"));
-//        // 11 returning the success status
-//        return Command::SUCCESS;
-//    }
 }

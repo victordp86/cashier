@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=OrderItemRepository::class)
@@ -28,10 +27,7 @@ class OrderItem
     /** @var float */
     private $orderLinePrice;
 
-    /** @var float */
-    private $priceWithDiscount;
-
-     // ...
+    // ...
     public function getOrderRef(): ?Order
     {
         return $this->orderRef;

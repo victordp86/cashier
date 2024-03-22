@@ -14,24 +14,18 @@ class MyClassTest extends TestCase
 
     public function setUp(): void
     {
-        $this->myOrder= new \App\Entity\Order();
-
-
-
+        $this->myOrder = new \App\Entity\Order();
     }
 
     public function tearDown(): void
     {
-        // Clean up any resources used during testing
-//       $this->myOrder->removeItem($this->myOrderItem1);
-//       $this->myOrder->removeItem($this->myOrderItem2);
     }
 
     public function testProductIsAddedToOrder()
     {
 
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
 
         //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
@@ -40,100 +34,71 @@ class MyClassTest extends TestCase
 
         //Assert
         $this->assertEquals($this->myOrder->getItems()[0]->getProduct(), 'GR1');
-//        $this->myOrder->getStatus();
-//         fwrite(STDERR, print_r($this->myOrder->getStatus(), TRUE));
-//        var_dump($this->myOrder->getStatus());
-//          $this->myOrder->addItem($this->myOrderItem1);
-//        $result = $this->myClass->concatenateStrings('hello', 'world');
-//
-//        $this->assertEquals('helloworld', $result);
 
         $this->myOrder->removeItem($this->myOrderItem1);
     }
+
     public function testTwoProductsAreAddedToOrder()
     {
 //
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
         $this->myOrderItem1->setOrderRef($this->myOrder);
         $this->myOrderItem1->setProduct("GR1");
+
         //Act
         $this->myOrder->addItem($this->myOrderItem1);
-
-        //Assert
-        $this->assertEquals($this->myOrder->getItems()[0]->getProduct(), 'GR1');
 
 
         $this->myOrderItem2 = new \App\Entity\OrderItem();
         $this->myOrderItem2->setOrderRef($this->myOrder);
         $this->myOrderItem2->setProduct("SR1");
         $this->myOrder->addItem($this->myOrderItem2);
+
+        //Assert
+        $this->assertEquals($this->myOrder->getItems()[0]->getProduct(), 'GR1');
         $this->assertEquals($this->myOrder->getItems()[1]->getProduct(), 'SR1');
 
 
-//        $this->myOrder->addItem($this->myOrderItem1);
-//        $this->assertEquals($this->myOrder->getItems()[0]->getProduct(), 'GR1');
-//
-//        $this->myOrder->addItem($this->myOrderItem2);
-//        $this->myOrderItem2->setProduct("SR1");
-//        $this->myOrder->addItem($this->myOrderItem2);
-//        $this->assertEquals($this->myOrder->getItems()[1]->getProduct(), 'GR1');
-////        $this->myOrder->getStatus();
-////         fwrite(STDERR, print_r($this->myOrder->getStatus(), TRUE));
-////        var_dump($this->myOrder->getStatus());
-////          $this->myOrder->addItem($this->myOrderItem1);
-////        $result = $this->myClass->concatenateStrings('hello', 'world');
-////
-////        $this->assertEquals('helloworld', $result);
     }
+
     public function testThreeProductsAreAddedToOrder()
     {
 //
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
+        $this->myOrderItem2 = new \App\Entity\OrderItem();
+        $this->myOrderItem3 = new \App\Entity\OrderItem();
+
+        //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
         $this->myOrderItem1->setProduct("GR1");
-        //Act
+
         $this->myOrder->addItem($this->myOrderItem1);
+
+        $this->myOrderItem2->setOrderRef($this->myOrder);
+        $this->myOrderItem2->setProduct("SR1");
+
+        $this->myOrder->addItem($this->myOrderItem2);
+
+        $this->myOrderItem3->setOrderRef($this->myOrder);
+        $this->myOrderItem3->setProduct("CF1");
+
+        $this->myOrder->addItem($this->myOrderItem3);
 
         //Assert
         $this->assertEquals($this->myOrder->getItems()[0]->getProduct(), 'GR1');
-
-
-        $this->myOrderItem2 = new \App\Entity\OrderItem();
-        $this->myOrderItem2->setOrderRef($this->myOrder);
-        $this->myOrderItem2->setProduct("SR1");
-        $this->myOrder->addItem($this->myOrderItem2);
         $this->assertEquals($this->myOrder->getItems()[1]->getProduct(), 'SR1');
-
-        $this->myOrderItem3 = new \App\Entity\OrderItem();
-        $this->myOrderItem3->setOrderRef($this->myOrder);
-        $this->myOrderItem3->setProduct("CF1");
-        $this->myOrder->addItem($this->myOrderItem3);
         $this->assertEquals($this->myOrder->getItems()[2]->getProduct(), 'CF1');
 
 
-//        $this->myOrder->addItem($this->myOrderItem1);
-//        $this->assertEquals($this->myOrder->getItems()[0]->getProduct(), 'GR1');
-//
-//        $this->myOrder->addItem($this->myOrderItem2);
-//        $this->myOrderItem2->setProduct("SR1");
-//        $this->myOrder->addItem($this->myOrderItem2);
-//        $this->assertEquals($this->myOrder->getItems()[1]->getProduct(), 'GR1');
-////        $this->myOrder->getStatus();
-////         fwrite(STDERR, print_r($this->myOrder->getStatus(), TRUE));
-////        var_dump($this->myOrder->getStatus());
-////          $this->myOrder->addItem($this->myOrderItem1);
-////        $result = $this->myClass->concatenateStrings('hello', 'world');
-////
-////        $this->assertEquals('helloworld', $result);
     }
 
     public function testWhenAddedTwoGreenTeasWeHaveOneFree()
     {
 
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
 
         //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
@@ -144,10 +109,10 @@ class MyClassTest extends TestCase
         $this->myOrder->addItem($this->myOrderItem1);
 
         $this->myOrder->calculateItemsDiscount();
-        //Assert
 
-        $this->assertEquals($this->myOrderItem1->getAmount(), 2 );
-        $this->assertEquals($this->myOrder->totalPrice(), 3.11 );
+        //Assert
+        $this->assertEquals($this->myOrderItem1->getAmount(), 2);
+        $this->assertEquals($this->myOrder->totalPrice(), 3.11);
 
     }
 
@@ -156,7 +121,7 @@ class MyClassTest extends TestCase
     {
 
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
 
         //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
@@ -167,10 +132,9 @@ class MyClassTest extends TestCase
         $this->myOrder->addItem($this->myOrderItem1);
 
         $this->myOrder->calculateItemsDiscount();
-        //Assert
 
-//        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
-        $this->assertEquals($this->myOrder->totalPrice(), 13.50 );
+        //Assert
+        $this->assertEquals($this->myOrder->totalPrice(), 13.50);
 
     }
 
@@ -179,7 +143,7 @@ class MyClassTest extends TestCase
     {
 
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
 
         //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
@@ -189,9 +153,9 @@ class MyClassTest extends TestCase
         $this->myOrder->addItem($this->myOrderItem1);
 
         $this->myOrder->calculateItemsDiscount();
+
         //Assert
-//        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
-        $this->assertEquals($this->myOrder->totalPrice(),22.46);
+        $this->assertEquals($this->myOrder->totalPrice(), 22.46);
 
     }
 
@@ -199,8 +163,8 @@ class MyClassTest extends TestCase
     {
 
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
-        $this->myOrderItem2= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
+        $this->myOrderItem2 = new \App\Entity\OrderItem();
 
         //Act
         $this->myOrderItem1->setOrderRef($this->myOrder);
@@ -217,21 +181,20 @@ class MyClassTest extends TestCase
         $this->myOrderItem2->setItemPrice(3.11);
         $this->myOrder->addItem($this->myOrderItem2);
 
-
         $this->myOrder->calculateItemsDiscount();
-        //Assert
 
-//        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
-        $this->assertEquals($this->myOrder->totalPrice(), 16.61 );
+        //Assert
+        $this->assertEquals($this->myOrder->totalPrice(), 16.61);
 
     }
- public function testWhenAddedThreeCoffesOneStrawberrieAndOneGreenTea()
+
+    public function testWhenAddedThreeCoffesOneStrawberrieAndOneGreenTea()
     {
 
         //Arrange
-        $this->myOrderItem1= new \App\Entity\OrderItem();
-        $this->myOrderItem2= new \App\Entity\OrderItem();
-        $this->myOrderItem3= new \App\Entity\OrderItem();
+        $this->myOrderItem1 = new \App\Entity\OrderItem();
+        $this->myOrderItem2 = new \App\Entity\OrderItem();
+        $this->myOrderItem3 = new \App\Entity\OrderItem();
 
 
         //Act
@@ -242,22 +205,12 @@ class MyClassTest extends TestCase
         $this->myOrderItem1->setItemPrice(5);
         $this->myOrder->addItem($this->myOrderItem1);
 
-
-
-//        $this->myOrder->calculateItemsDiscount();
-//
-//     $this->assertEquals($this->myOrder->totalPrice(), 5 );
-//
         $this->myOrderItem2->setOrderRef($this->myOrder);
         $this->myOrderItem2->setProduct("GR1");
         $this->myOrderItem2->setAmount(1);
         $this->myOrderItem2->setOrderLinePrice(3.11);
         $this->myOrderItem2->setItemPrice(3.11);
         $this->myOrder->addItem($this->myOrderItem2);
-
-//        $this->myOrder->calculateItemsDiscount();
-
-
 
         $this->myOrderItem3->setOrderRef($this->myOrder);
         $this->myOrderItem3->setProduct("CF1");
@@ -266,19 +219,12 @@ class MyClassTest extends TestCase
         $this->myOrderItem3->setItemPrice(11.23);
         $this->myOrder->addItem($this->myOrderItem3);
 
-
-
         $this->myOrder->calculateItemsDiscount();
-
-     $this->assertEquals($this->myOrder->totalPrice(), 30.57 );
-
+        
         //Assert
+        $this->assertEquals($this->myOrder->totalPrice(), 30.57);
 
-//        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
-//        $this->assertEquals($this->myOrder->totalPrice(), 30.37 );
-
-
-}
+    }
 }
 
 ?>

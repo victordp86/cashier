@@ -86,49 +86,34 @@ class Order
     {
         $currentDiscountGR1 = 2;
         $currentDiscountSR1 = 4.5;
-        $currentDiscountCR1 = 2/3;
-        var_dump('ENTERS');
-        foreach ($this->items as $item){
-            /** @item OrderItem */
-            if ($item->getProduct()==='GR1'){
+        $currentDiscountCR1 = 2 / 3;
+
+        foreach ($this->items as $item) {
+            if ($item->getProduct() === 'GR1') {
                 $item->setAmount($item->getAmount() * $currentDiscountGR1);
-//               if($item->getAmount() %2 == 1){
-//                   $item->setAmount($item->getAmount() + 1 );
-//                   $item->setDiscountPrice($item->getDiscountPrice - ($item->getAmount));
-//               }
             }
 
-            if ($item->getProduct()==='SR1'){
-                if($item->getAmount()>=3){
+            if ($item->getProduct() === 'SR1') {
+                if ($item->getAmount() >= 3) {
                     $item->setItemPrice($currentDiscountSR1);
-                    $item->setOrderLinePrice($item->getItemPrice() * $item->getAmount()  );
-//                    var_dump($item->getPrice());
-//                    var_dump($item->getOrderLinePrice());
-                }
-                else{
-                    $item->setOrderLinePrice($item->getItemPrice() * $item->getAmount() );
+                    $item->setOrderLinePrice($item->getItemPrice() * $item->getAmount());
+                } else {
+                    $item->setOrderLinePrice($item->getItemPrice() * $item->getAmount());
                 }
 
-                var_dump($item->getOrderLinePrice());
             }
-            if ($item->getProduct()==='CF1'){
-                var_dump('ENTERS');
-                if($item->getAmount()>=3){
-                    var_dump('ITEM');
+            if ($item->getProduct() === 'CF1') {
+                if ($item->getAmount() >= 3) {
 
-                    var_dump($item);
-                    var_dump($item->getItemPrice());
-                    $discontPrice =  $item->getAmount() * $item->getItemPrice() * $currentDiscountCR1;
-                    $discontPrice = number_format($discontPrice,2);
-                    var_dump($discontPrice);
+                    $discontPrice = $item->getAmount() * $item->getItemPrice() * $currentDiscountCR1;
+                    $discontPrice = number_format($discontPrice, 2);
                     $item->setOrderLinePrice($discontPrice);
-                }
-                else{
+                } else {
                     $item->setOrderLinePrice($item->getAmount() * $item->getItemPrice());
                 }
 
             }
-    }
+        }
     }
 
     /**
@@ -137,13 +122,12 @@ class Order
     public function totalPrice(): float
     {
         $total = 0;
-        foreach ($this->items as $item){
-          $total = $total +  $item->getOrderLinePrice();
-
-         var_dump($item->getOrderLinePrice());
+        foreach ($this->items as $item) {
+            $total = $total + $item->getOrderLinePrice();
         }
         return $total;
     }
+
     public function getStatus(): ?string
     {
         return $this->status;
