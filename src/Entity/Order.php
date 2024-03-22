@@ -100,21 +100,31 @@ class Order
 
             if ($item->getProduct()==='SR1'){
                 if($item->getAmount()>=3){
-                    $item->setPrice($currentDiscountSR1);
-                    $item->setOrderLinePrice($item->getPrice() * $item->getAmount() );
+                    $item->setItemPrice($currentDiscountSR1);
+                    $item->setOrderLinePrice($item->getItemPrice() * $item->getAmount()  );
 //                    var_dump($item->getPrice());
 //                    var_dump($item->getOrderLinePrice());
                 }
+                else{
+                    $item->setOrderLinePrice($item->getItemPrice() * $item->getAmount() );
+                }
+
+                var_dump($item->getOrderLinePrice());
             }
             if ($item->getProduct()==='CF1'){
                 var_dump('ENTERS');
                 if($item->getAmount()>=3){
-                    var_dump('ENTERS');
+                    var_dump('ITEM');
+
+                    var_dump($item);
                     var_dump($item->getItemPrice());
                     $discontPrice =  $item->getAmount() * $item->getItemPrice() * $currentDiscountCR1;
                     $discontPrice = number_format($discontPrice,2);
                     var_dump($discontPrice);
                     $item->setOrderLinePrice($discontPrice);
+                }
+                else{
+                    $item->setOrderLinePrice($item->getAmount() * $item->getItemPrice());
                 }
 
             }

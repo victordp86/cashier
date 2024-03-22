@@ -151,7 +151,8 @@ class MyClassTest extends TestCase
 
     }
 
-    public function testWhenAddedThreeStrawberriesPricesLowersToForFifty()
+    public function testWhenAddedThreeStrawberriesPricesLowersToFourFifty()
+
     {
 
         //Arrange
@@ -241,6 +242,12 @@ class MyClassTest extends TestCase
         $this->myOrderItem1->setItemPrice(5);
         $this->myOrder->addItem($this->myOrderItem1);
 
+
+
+//        $this->myOrder->calculateItemsDiscount();
+//
+//     $this->assertEquals($this->myOrder->totalPrice(), 5 );
+//
         $this->myOrderItem2->setOrderRef($this->myOrder);
         $this->myOrderItem2->setProduct("GR1");
         $this->myOrderItem2->setAmount(1);
@@ -248,20 +255,27 @@ class MyClassTest extends TestCase
         $this->myOrderItem2->setItemPrice(3.11);
         $this->myOrder->addItem($this->myOrderItem2);
 
-        $this->myOrderItem2->setOrderRef($this->myOrder);
-        $this->myOrderItem2->setProduct("CF1");
-        $this->myOrderItem2->setAmount(3);
-        $this->myOrderItem2->setOrderLinePrice(11.23);
-        $this->myOrderItem2->setItemPrice(11.23);
-        $this->myOrder->addItem($this->myOrderItem2);
+//        $this->myOrder->calculateItemsDiscount();
+
+
+
+        $this->myOrderItem3->setOrderRef($this->myOrder);
+        $this->myOrderItem3->setProduct("CF1");
+        $this->myOrderItem3->setAmount(3);
+        $this->myOrderItem3->setOrderLinePrice(11.23);
+        $this->myOrderItem3->setItemPrice(11.23);
+        $this->myOrder->addItem($this->myOrderItem3);
 
 
 
         $this->myOrder->calculateItemsDiscount();
+
+     $this->assertEquals($this->myOrder->totalPrice(), 30.57 );
+
         //Assert
 
 //        $this->assertEquals($this->myOrderItem1->getAmount(), 3 );
-        $this->assertEquals($this->myOrder->totalPrice(), 30.57 );
+//        $this->assertEquals($this->myOrder->totalPrice(), 30.37 );
 
 
 }
