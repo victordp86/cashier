@@ -80,6 +80,20 @@ class Order
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
+    public function calculateItemsDiscount(): true
+    {
+        foreach ($this->items as $item){
+          //
+           if ($item->getProduct()==='GR1'){
+               return true;
+           }
+        }
+        return false;
+        //return $this//->items;
+    }
     public function getStatus(): ?string
     {
         return $this->status;

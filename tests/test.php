@@ -127,6 +127,31 @@ class MyClassTest extends TestCase
 ////
 ////        $this->assertEquals('helloworld', $result);
     }
+
+    public function testWhenAddedTwoGreanTeasWeHaveOneFree()
+    {
+
+        //Arrange
+        $this->myOrderItem1= new \App\Entity\OrderItem();
+
+        //Act
+        $this->myOrderItem1->setOrderRef($this->myOrder);
+        $this->myOrderItem1->setProduct("GR1");
+        $this->myOrderItem1->setAmount(2);
+        $this->myOrder->addItem($this->myOrderItem1);
+
+        //Assert
+        $this->assertEquals($this->myOrder->calculateItemsDiscount(), true);
+//        $this->myOrder->getStatus();
+//         fwrite(STDERR, print_r($this->myOrder->getStatus(), TRUE));
+//        var_dump($this->myOrder->getStatus());
+//          $this->myOrder->addItem($this->myOrderItem1);
+//        $result = $this->myClass->concatenateStrings('hello', 'world');
+//
+//        $this->assertEquals('helloworld', $result);
+
+        $this->myOrder->removeItem($this->myOrderItem1);
+    }
 }
 ?>
 
