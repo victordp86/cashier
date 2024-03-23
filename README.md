@@ -1,51 +1,45 @@
-# Symfony Docker
-
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
-
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
-
-## Getting Started
-
+﻿# <a name="_v3li3w1go6tw"></a>**Cash register**
+Cash register a Symfony Program library for dealing with orders using CLI.
+## <a name="_74xs0bgwwcxs"></a>**Getting Started**
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --no-cache` to build fresh images
-3. Run `docker compose up --pull always -d --wait` to start the project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+1. Run docker compose build --no-cache to build fresh images
+1. Run docker compose up --pull always -d --wait to start the project
+1. Open https://localhost in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
+1. Run docker compose down --remove-orphans to stop the Docker containers.
+## <a name="_nwllhnkkffv5"></a>**Features**
+- Hability to add products
+- Customizable with discounts
+- Ability to print everything into the terminal
 
-## Features
-
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
-
-**Enjoy!**
-
-## Docs
-
-1. [Build options](docs/build.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
-
-## License
-
+Enjoy!
+## <a name="_qz99am25owzy"></a>**Docs**
+1. [Build options](https://www.makeareadme.com/docs/build.md)
+1. [Using Symfony Docker with an existing project](https://www.makeareadme.com/docs/existing-project.md)
+1. [Support for extra services](https://www.makeareadme.com/docs/extra-services.md)
+1. [Deploying in production](https://www.makeareadme.com/docs/production.md)
+1. [Debugging with Xdebug](https://www.makeareadme.com/docs/xdebug.md)
+1. [TLS Certificates](https://www.makeareadme.com/docs/tls.md)
+1. [Using MySQL instead of PostgreSQL](https://www.makeareadme.com/docs/mysql.md)
+1. [Using Alpine Linux instead of Debian](https://www.makeareadme.com/docs/alpine.md)
+1. [Using a Makefile](https://www.makeareadme.com/docs/makefile.md)
+1. [Updating the template](https://www.makeareadme.com/docs/updating.md)
+1. [Troubleshooting](https://www.makeareadme.com/docs/troubleshooting.md)
+## <a name="_s8uqgllkpm0o"></a>**License**
 Symfony Docker is available under the MIT License.
+## <a name="_w182g4kpsmmo"></a>**Credits**
+Created by [Kévin Dunglas](https://dunglas.dev/), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop/).
+## <a name="_iz0oix4r1wlc"></a>**Usage**
+php my-cli.php buy
 
-## Credits
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+## <a name="_nn6spek5btld"></a>**Test**
+./vendor/phpunit/phpunit/phpunit tests/test.php 
+
+
+## <a name="_nai05qyweude"></a>**Contributing**
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+## <a name="_avmpq8d3u4xq"></a>**License**
+[MIT](https://victordonetperis.com/)
+

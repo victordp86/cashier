@@ -220,7 +220,7 @@ class MyClassTest extends TestCase
         $this->myOrder->addItem($this->myOrderItem3);
 
         $this->myOrder->calculateItemsDiscount();
-        
+
         //Assert
         $this->assertEquals($this->myOrder->totalPrice(), 30.57);
 
